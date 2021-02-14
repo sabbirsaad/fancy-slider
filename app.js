@@ -128,7 +128,7 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   const duration = document.getElementById('duration').value || 1000;
   if (duration < 0) {
-    alert('Time cannot be negative. Enter a valid value.');
+    alert('Duration cannot be negative. Enter a valid value.');
   }
   else {
     createSlider();
