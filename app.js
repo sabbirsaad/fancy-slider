@@ -4,6 +4,8 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+
+const searchImageName = document.getElementById('search-image-name');
 // selected image 
 let sliders = [];
 
@@ -24,7 +26,7 @@ const showImages = (images) => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-    gallery.appendChild(div)
+    gallery.appendChild(div);
   })
 
 }
@@ -32,7 +34,8 @@ const showImages = (images) => {
 const getImages = (query) => {
 
   if (!search.value) {
-    alert("Please input a item first");
+    alert("Please write something to search");
+    searchImageName.style.display = 'none';
   }
   else {
     toggleSpinner();
@@ -63,6 +66,7 @@ const createSlider = () => {
     return;
   }
   // crate slider previous next area
+  searchImageName.style.display = 'none';
   sliderContainer.innerHTML = '';
   const prevNext = document.createElement('div');
   prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
@@ -119,13 +123,16 @@ const changeSlide = (index) => {
 
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
+  searchImageName.style.display = 'block';
   clearInterval(timer);
   const search = document.getElementById('search');
+  document.getElementById('item-name').innerText = search.value;
   getImages(search.value)
   sliders.length = 0;
 })
 
 sliderBtn.addEventListener('click', function () {
+
   const duration = document.getElementById('duration').value || 1000;
   if (duration < 0) {
     alert('Duration cannot be negative. Enter a valid value.');
@@ -136,15 +143,20 @@ sliderBtn.addEventListener('click', function () {
 
 })
 
-//Search box Enter-key
-document.getElementById("search").addEventListener("keypress", function (event) {
-  if (event.key === 'Enter')
-    document.getElementById("search-btn").click();
-});
+
+// Enter-key event handler
+const enterKey = (inputId, btnId) => {
+  document.getElementById(inputId).addEventListener("keypress", function (event) {
+    if (event.key === 'Enter')
+      document.getElementById(btnId).click();
+  });
+}
+
+enterKey('search', 'search-btn'); //search-btn
+enterKey('duration', 'create-slider'); //create-slider-btn
 
 
 // NEW FEATURES
-
 // toggle-Spinner & images
 const toggleSpinner = () => {
 
@@ -152,4 +164,11 @@ const toggleSpinner = () => {
   spinner.classList.toggle('d-none');
   imagesArea.classList.toggle('d-none');
 
+}
+//Back-previous-page
+const backButton = () => {
+  document.getElementById('slider-area').style.display = 'none';
+  imagesArea.style.display = 'block';
+  searchImageName.style.display = 'block';
+  clearInterval(timer);
 }

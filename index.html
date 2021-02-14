@@ -24,11 +24,16 @@
       </div>
       <button type="button" id="search-btn" class="btn btn-primary mb-2">Search</button>
     </div>
-
+    <!-- spinner -->
     <div class="d-flex justify-content-center">
-      <div id="loading-spinner" class="spinner-border my-5 text-info d-none " role="status">
+      <div id="loading-spinner" class="spinner-border mt-4 text-info d-none " role="status">
         <span class="visually-hidden"></span>
       </div>
+    </div>
+
+    <!--show search item name -->
+    <div id="search-image-name">
+        <h3>Images for <span id="item-name"></span></h3>
     </div>
 
     <section class="images">
@@ -42,11 +47,11 @@
       <div class="row gallery">
 
 
-
       </div>
     </section>
+
     <!-- slider -->
-    <div class="main">
+    <div id="slider-area" class="main">
       <section class="mt-5" id="sliders">
 
       </section>
@@ -54,8 +59,15 @@
         <span class="dot" onclick="changeItem(-1)"></span>
         <span class="dot" onclick="changeItem(1)"></span>
       </div>
+
+      <!-- Back-button -->
+      <div class="d-flex justify-content-center mt-3">
+        <button onclick="backButton()" class="btn btn-info px-3">Back</button>
+      </div>
+
     </div>
   </div>
+
   <!-- Optional JavaScript -->
   <script src="./app.js"></script>
 </body>
